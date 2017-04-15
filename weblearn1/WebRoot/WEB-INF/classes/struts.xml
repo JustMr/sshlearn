@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<constant name="struts.i18n.encoding" value="utf-8" />
+	<constant name="struts.objectFactory" value="spring"/>
+	<constant name="struts.objectFactory.spring.autoWire" value="type"/>
+	<constant name="struts.devMode" value="true"></constant>
+	
+	<package name="adL" extends="struts-default" namespace="/">
+		<action name="login" class="apcLoginAction" method="execute">
+			<result name="SUCCESS">/add.jsp</result>  
+        	<result name="INPUT">/login.jsp</result>  
+        	<result name="ERROR">/error.jsp</result>  
+		</action>
+		<action name="regist" class="com.adL.action.RegisterAction" method="regist">
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<interceptor-ref name="token"></interceptor-ref>
+			<!-- 拦截器转向 -->
+			<result name="invalid.token">/error.html</result>
+		</action>
+		<action name="regist1" class="com.adL.action.RegisterAction" method="regist1">
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<interceptor-ref name="tokenSession"></interceptor-ref>
+			<!-- 拦截器转向 -->
+			<result>/success.html</result>
+		</action>
+		<action name="findAll" class="findALlAction" method="findAll">
+		</action>
+		
+		<action name="list" class="listBean" method="list">  
+	        <result name="SUCCESS">/list.jsp</result>  
+	        <result name="INPUT">/add.jsp</result>  
+	    </action> 
+		<action name="add" class="addBean" method="addSafeUser">  
+	        <result type="redirect">list.action</result>  
+	        <result name="INPUT">/add.jsp</result>  
+	    </action>  
+	  
+	    <action name="update" class="updateBean" method="UpdateSafeUser">  
+	        <result name="SUCCESS" type="redirect">list.action</result>  
+	        <result name="INPUT">/update.jsp</result>  
+	        <result name="ERROR">/error.jsp</result>  
+	    </action>  
+	    <action name="delete" class="deleteBean" method="deleteSafeUser">  
+	        <result type="redirect">list.action</result>  
+	        <result name="INPUT">/add.jsp</result>  
+	    </action>  
+	    <action name="edit" class="editBean" method="editSafeUser">  
+	        <result>/update.jsp</result>  
+	    </action>  
+	     <!-- <action name="login1" class="apcLoginAction1" method="execute">
+			<result name="SUCCESS">/add.jsp</result>  
+        	<result name="INPUT">/login.jsp</result>  
+        	<result name="ERROR">/error.jsp</result>  
+		</action> -->
+	</package>
+</struts>    
